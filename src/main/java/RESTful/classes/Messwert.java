@@ -13,7 +13,7 @@ public class Messwert implements Serializable {
     private String id;
     private String seriennummer;
     @ManyToOne
-    private Messung Messung;
+    private Messung messung;
     private float temperatur;
     private LocalDateTime messzeit;
     private int akku;
@@ -72,11 +72,11 @@ public class Messwert implements Serializable {
     }
 
     public Messung getMessung() {
-        return Messung;
+        return messung;
     }
 
     public void setMessung(Messung messung) {
-        Messung = messung;
+        messung = messung;
     }
 
     public String getSeriennummer() {

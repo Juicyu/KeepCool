@@ -3,14 +3,16 @@ package RESTful.APIs;
 import RESTful.DAOs.ThermometerDAO;
 import RESTful.classes.Thermometer;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/ThermometerAnlegen")
 public class ThermometerAPI {
+
+    @GET
+    public String hallo(){
+        return "Hallo!";
+    }
 
     @POST
     @Consumes({MediaType.APPLICATION_JSON})

@@ -23,13 +23,17 @@ public class Messung implements Serializable {
     private float minTemperatur;
     private float maxTemperatur;
 
-    @OneToMany(mappedBy = "messungen")
+    @OneToMany(mappedBy = "messung")
     List<Messwert> messwerte = new ArrayList<Messwert>();
 
     //Konstruktor
+    public Messung() {
+    }
+
     public Messung(String id) {
         this.id = id;
     }
+
 
     //Getter und Setter
     public String getId() {
