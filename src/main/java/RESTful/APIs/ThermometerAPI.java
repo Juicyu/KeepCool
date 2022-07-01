@@ -11,17 +11,19 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
+import java.util.List;
 
 //http://localhost:8080/deployments/KeepCool/ThermometerAnlegen
-@Path("/ThermometerAnlegen")
 public class ThermometerAPI {
 
     @GET
+    @Path("/hallo")
     public String hallo(){
         return "Hallo!";
     }
 
     @POST
+    @Path("/ThermometerAnlegen")
     @Consumes({MediaType.APPLICATION_JSON})
     public void speichereThermometer(final ThermometerXML thermometerXML){
         try {
@@ -33,6 +35,18 @@ public class ThermometerAPI {
             System.out.println(thermometer.getId());
             System.out.println(thermometer.getName());
             thermometerDAOLocal.speichereThermometer(thermometer);
+        } catch (NamingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GET
+    @Path("/alleThermometer")
+    public List<Thermometer> alleThermometer(){
+        try {
+            InitialContext context = new InitialContext();
+            ThermometerDAOLocal thermometerDAOLocal = (ThermometerDAOLocal) context.lookup("java:module/ThermometerDAO!RESTful.DAOs.ThermometerDAOLocal");
+            return thermometerDAOLocal.listeThermometer();
         } catch (NamingException e) {
             throw new RuntimeException(e);
         }
