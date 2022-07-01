@@ -2,21 +2,27 @@ package RESTful.DAOs;
 
 import RESTful.classes.Thermometer;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import java.util.List;
 
-public class ThermometerDAO {
+@Stateless
+public class ThermometerDAO implements ThermometerDAOLocal{
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    public String speichereThermometer(Thermometer thermometer){
-        entityManager.persist(thermometer);
-        return thermometer.getId();
+    public void speichereThermometer(Thermometer thermometer){
+        try {
+            entityManager.persist(thermometer);
+        } catch (Exception exception){
+            System.out.println("Fehler");
+        }
     }
 
-    public void loescheThermometer(String thermometerID){
+    public void loescheThermometer(int thermometerID){
         Thermometer thermometer = entityManager.find(Thermometer.class, thermometerID);
         entityManager.remove(thermometer);
     }

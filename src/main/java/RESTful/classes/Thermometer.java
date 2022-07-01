@@ -1,8 +1,6 @@
 package RESTful.classes;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +9,8 @@ import java.util.List;
 public class Thermometer implements Serializable {
 
     @Id
-    private String id;
-    private String seriennummer;
+    private int id;
+    private String name;
     @OneToMany(mappedBy = "thermometer")
     private List<Messung> messungen = new ArrayList<Messung>();
 
@@ -20,29 +18,32 @@ public class Thermometer implements Serializable {
     public Thermometer() {
     }
 
-    public Thermometer(String id, String seriennummer) {
+    public Thermometer(String seriennummer) {
+        this.name = seriennummer;
+    }
+
+    public Thermometer(int id, String seriennummer) {
         this.id = id;
-        this.seriennummer = seriennummer;
+        this.name = seriennummer;
     }
 
     //Getter und Setter
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getSeriennummer() {
-        return seriennummer;
+    public String getName() {
+        return name;
     }
 
-    public void setSeriennummer(String seriennummer) {
-        this.seriennummer = seriennummer;
+    public void setName(String name) {
+        this.name = name;
     }
-
+    @OneToMany(mappedBy = "thermometer")
     public List<Messung> getMessungen() {
         return messungen;
     }
