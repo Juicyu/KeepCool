@@ -1,0 +1,3 @@
+[submodule "keep-cool-frontend"]
+	path = keep-cool-frontend
+	url = https://github.com/ltielker/keep-cool-frontend.git
