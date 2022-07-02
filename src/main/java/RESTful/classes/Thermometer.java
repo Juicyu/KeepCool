@@ -43,7 +43,7 @@ public class Thermometer implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-    @OneToMany(mappedBy = "thermometer")
+
     public List<Messung> getMessungen() {
         return messungen;
     }

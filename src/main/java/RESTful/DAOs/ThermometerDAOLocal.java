@@ -10,6 +10,7 @@ public interface ThermometerDAOLocal {
 
     public void speichereThermometer(Thermometer thermometer);
     public void loescheThermometer(int thermometerID);
+    public Thermometer findeThermometer(int thermometerID);
     public void aendereThermometer(Thermometer thermometer);
     public List<Thermometer> listeThermometer();
 }

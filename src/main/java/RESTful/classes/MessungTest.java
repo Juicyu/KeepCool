@@ -1,2 +1,5 @@
-package RESTful.classes;public class MessungTest {
+package RESTful.classes;
+
+public class MessungTest {
+    private String name;
 }

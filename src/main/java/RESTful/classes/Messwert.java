@@ -1,6 +1,7 @@
 package RESTful.classes;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
@@ -10,15 +11,16 @@ import java.time.LocalDateTime;
 public class Messwert implements Serializable {
 
     @Id
-    private String id;
-    private String seriennummer;
+    @GeneratedValue
+    private int id;
+    private String name;
     @ManyToOne
     private Messung messung;
-    private float temperatur;
+    private double temperatur;
     private LocalDateTime messzeit;
     private int akku;
 
-    public Messwert(String id) {
+    public Messwert(int id) {
         this.id = id;
     }
 
@@ -26,32 +28,30 @@ public class Messwert implements Serializable {
 
     }
 
-    public Messwert(String id, String seriennummer) {
-        this.id = id;
-        this.seriennummer = seriennummer;
+    public Messwert(String name) {
+        this.name = name;
     }
 
-    public Messwert(String id, float temperatur, LocalDateTime messzeit, int akku) {
-        this.id = id;
+    public Messwert(double temperatur, LocalDateTime messzeit, int akku) {
         this.temperatur = temperatur;
         this.messzeit = messzeit;
         this.akku = akku;
     }
 
     //Getter und Setter
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public float getTemperatur() {
+    public double getTemperatur() {
         return temperatur;
     }
 
-    public void setTemperatur(float temperatur) {
+    public void setTemperatur(double temperatur) {
         this.temperatur = temperatur;
     }
 
@@ -79,11 +79,11 @@ public class Messwert implements Serializable {
         messung = messung;
     }
 
-    public String getSeriennummer() {
-        return seriennummer;
+    public String getName() {
+        return name;
     }
 
-    public void setSeriennummer(String seriennummer) {
-        this.seriennummer = seriennummer;
+    public void setName(String seriennummer) {
+        this.name = seriennummer;
     }
 }

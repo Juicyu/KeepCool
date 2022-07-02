@@ -1,9 +1,9 @@
 package RESTful.classes;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import RESTful.DAOs.ThermometerDAOLocal;
+
+import javax.naming.InitialContext;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,14 +14,16 @@ public class Messung implements Serializable {
 
     //@GeneratedValue
     @Id
-    private String id;
+    @GeneratedValue
+    private int id;
+    private String name;
     private Date startzeit;
     private Date endzeit;
     @ManyToOne
     private Thermometer thermometer;
     private String richtlinie;
-    private float minTemperatur;
-    private float maxTemperatur;
+    private double minTemperatur;
+    private double maxTemperatur;
 
     @OneToMany(mappedBy = "messung")
     List<Messwert> messwerte = new ArrayList<Messwert>();
@@ -30,17 +32,27 @@ public class Messung implements Serializable {
     public Messung() {
     }
 
-    public Messung(String id) {
-        this.id = id;
+    public Messung(String name, double minTemperatur, double maxTemperatur, int thermometerId) {
+
+        try{
+            InitialContext initialContext = new InitialContext();
+            ThermometerDAOLocal thermometerDAOLocal = (ThermometerDAOLocal) initialContext.lookup("java:module/ThermometerDAO!RESTful.DAOs.ThermometerDAOLocal");
+            this.thermometer = thermometerDAOLocal.findeThermometer(thermometerId);
+        } catch (Exception e){
+
+        }
+
+        this.name = name;
+        this.minTemperatur = minTemperatur;
+        this.maxTemperatur = maxTemperatur;
     }
 
-
     //Getter und Setter
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -76,7 +88,7 @@ public class Messung implements Serializable {
         this.richtlinie = richtlinie;
     }
 
-    public float getMinTemperatur() {
+    public double getMinTemperatur() {
         return minTemperatur;
     }
 
@@ -84,7 +96,7 @@ public class Messung implements Serializable {
         this.minTemperatur = minTemperatur;
     }
 
-    public float getMaxTemperatur() {
+    public double getMaxTemperatur() {
         return maxTemperatur;
     }
 
@@ -98,6 +110,14 @@ public class Messung implements Serializable {
 
     public void setMesswerte(List<Messwert> messwerte) {
         this.messwerte = messwerte;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     /*Funktionen*/
