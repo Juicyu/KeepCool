@@ -25,7 +25,8 @@ public class MesswertAPI {
             InitialContext initialContext = new InitialContext();
             DecimalFormat df = new DecimalFormat();
             df.setMaximumFractionDigits(2);
-            double temp = Math.random()*(-12)-18;
+            //double temp = Double.parseDouble(df.format((Math.random()*(-12)-18)));
+            double temp = (Math.random()*(-12)-18);
             int akku = 100;
             Messwert messwert = new Messwert(temp, LocalDateTime.now(), akku);
             MesswertDAOLocal messwertDAOLocal = (MesswertDAOLocal) initialContext.lookup("java:module/MesswertDAO!RESTful.DAOs.MesswertDAOLocal");            messwert.setId(messwertDAOLocal.speichereMesswert(messwert));
@@ -35,13 +36,6 @@ public class MesswertAPI {
                 gesamtTemp += messwert1.getTemperatur();
             }
             String durchschnittstemperatur = df.format(gesamtTemp/messwertList.size());
-            System.out.println("Messwert-ID: " + messwert.getId() +
-                    "\nDatum: " + messwert.getMesszeit().toLocalDate() +
-                    "\nUhrzeit " +messwert.getMesszeit().toLocalTime() +
-                    "\naktuelle Temperatur: " + df.format(messwert.getTemperatur()) + " °C" +
-                    "\nDurchschnittstemperatur: " + durchschnittstemperatur + " °C" +
-                    "\nAkkustand: " + messwert.getAkku() +
-                    "\n----------------------------------------");
             return Response.accepted(messwert).build();
         } catch (Exception e){
 
