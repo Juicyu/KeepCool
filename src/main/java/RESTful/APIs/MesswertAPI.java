@@ -7,6 +7,7 @@ import RESTful.classes.MesswertRueckgabe;
 import javax.naming.InitialContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import java.text.DecimalFormat;
@@ -18,9 +19,9 @@ import java.util.List;
 @Produces("text/json")
 public class MesswertAPI {
 
-    @Path("/messen")
     @GET
-    public Response messeTemperatur(){
+    @Path("/messen/{messungID}")
+    public Response messeTemperatur(@PathParam("messungID") int messungID){
 
         try{
             InitialContext initialContext = new InitialContext();
@@ -35,7 +36,7 @@ public class MesswertAPI {
 
             //Messwert anlegen
             int akku = 100;
-            Messwert messwert = new Messwert(temp, LocalDateTime.now(), akku);
+            Messwert messwert = new Messwert(temp, LocalDateTime.now(), akku, messungID);
             MesswertDAOLocal messwertDAOLocal = (MesswertDAOLocal) initialContext.lookup("java:module/MesswertDAO!RESTful.DAOs.MesswertDAOLocal");
             messwert.setId(messwertDAOLocal.speichereMesswert(messwert));
 
@@ -47,12 +48,14 @@ public class MesswertAPI {
             }
             String durchschnittstemperatur = df.format(gesamtTemp/messwertList.size());
 
-            MesswertRueckgabe messwertRueckgabe = new MesswertRueckgabe(messwert.getTemperatur(),
+            MesswertRueckgabe messwertRueckgabe = new MesswertRueckgabe(
+                    messwert.getTemperatur(),
                     messwert.getMesszeit(),
                     messwert.getAkku(),
                     messwert.getMesszeit().toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
                     messwert.getMesszeit().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")),
-                    durchschnittstemperatur);
+                    durchschnittstemperatur,
+                    messungID);
 
             //Antworten
             return Response.accepted(messwertRueckgabe).build();

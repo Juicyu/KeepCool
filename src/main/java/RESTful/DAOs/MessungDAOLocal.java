@@ -9,4 +9,5 @@ import javax.persistence.PersistenceContext;
 public interface MessungDAOLocal {
 
     public int speichereMessung(Messung messung);
+    public Messung findeMessung(int messungID);
 }

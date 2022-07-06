@@ -26,8 +26,8 @@ public class MessungAPI {
             MessungDAOLocal messungDAOLocal = (MessungDAOLocal) initialContext.lookup("java:module/MessungDAO!RESTful.DAOs.MessungDAOLocal");
             Messung messung = new Messung(
                     messungXML.name,
-                    messungXML.minTemp,
-                    messungXML.maxTemp,
+                    messungXML.minTemperature,
+                    messungXML.maxTemperature,
                     messungXML.thermometerID
             );
             messung.setId(messungDAOLocal.speichereMessung(messung));

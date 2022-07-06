@@ -1,24 +1,31 @@
 package RESTful.classes;
 
-import java.time.LocalDate;
+import javax.persistence.Entity;
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
-public class MesswertRueckgabe extends Messwert{
+@Entity
+public class MesswertRueckgabe extends Messwert implements Serializable {
 
     String date;
     String time;
     String durchschnittstemperatur;
 
     public MesswertRueckgabe(double temperatur,
-                             LocalDateTime messzeit, int akku,
+                             LocalDateTime messzeit,
+                             int akku,
                              String date,
                              String time,
-                             String durchschnittstemperatur) {
-        super(temperatur, messzeit, akku);
+                             String durchschnittstemperatur,
+                             int messungID) {
+        super(temperatur, messzeit, akku, messungID);
         this.date = date;
         this.time = time;
         this.durchschnittstemperatur = durchschnittstemperatur;
+    }
+
+    public MesswertRueckgabe() {
+
     }
 
     public String getDate() {

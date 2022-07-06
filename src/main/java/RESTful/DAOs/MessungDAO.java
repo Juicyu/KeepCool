@@ -18,4 +18,9 @@ public class MessungDAO implements MessungDAOLocal{
         entityManager.persist(messung);
         return messung.getId();
     }
+
+    @Override
+    public Messung findeMessung(int messungID) {
+        return entityManager.find(Messung.class, messungID);
+    }
 }

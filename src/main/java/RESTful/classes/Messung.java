@@ -26,7 +26,7 @@ public class Messung implements Serializable {
     private double maxTemperatur;
 
     @OneToMany(mappedBy = "messung")
-    List<Messwert> messwerte = new ArrayList<Messwert>();
+    private List<Messwert> messwerte = new ArrayList<Messwert>();
 
     //Konstruktor
     public Messung() {

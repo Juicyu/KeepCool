@@ -9,10 +9,10 @@ public class MessungXML {
     public int thermometerID;
 
     @XmlElement
-    public double minTemp;
+    public double minTemperature;
 
     @XmlElement
-    public double maxTemp;
+    public double maxTemperature;
 
     @XmlElement
     public String name;

@@ -1,9 +1,9 @@
 package RESTful.classes;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import RESTful.DAOs.MessungDAOLocal;
+
+import javax.naming.InitialContext;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -32,7 +32,16 @@ public class Messwert implements Serializable {
         this.name = name;
     }
 
-    public Messwert(double temperatur, LocalDateTime messzeit, int akku) {
+    public Messwert(double temperatur, LocalDateTime messzeit, int akku, int messungID) {
+
+        try{
+            InitialContext initialContext = new InitialContext();
+            MessungDAOLocal messungDAOLocal = (MessungDAOLocal) initialContext.lookup("java:module/MessungDAO!RESTful.DAOs.MessungDAOLocal");
+            this.messung = messungDAOLocal.findeMessung(messungID);
+            System.out.println(messung);
+        } catch (Exception e){
+
+        }
         this.temperatur = temperatur;
         this.messzeit = messzeit;
         this.akku = akku;
