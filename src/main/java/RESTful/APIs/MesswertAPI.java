@@ -20,8 +20,8 @@ import java.util.List;
 public class MesswertAPI {
 
     @GET
-    @Path("/messen/{messungID}")
-    public Response messeTemperatur(@PathParam("messungID") int messungID){
+    @Path("/messen")
+    public Response messeTemperatur(){
 
         try{
             InitialContext initialContext = new InitialContext();
@@ -36,7 +36,7 @@ public class MesswertAPI {
 
             //Messwert anlegen
             int akku = 100;
-            Messwert messwert = new Messwert(temp, LocalDateTime.now(), akku, messungID);
+            Messwert messwert = new Messwert(temp, LocalDateTime.now(), akku);
             MesswertDAOLocal messwertDAOLocal = (MesswertDAOLocal) initialContext.lookup("java:module/MesswertDAO!RESTful.DAOs.MesswertDAOLocal");
             messwert.setId(messwertDAOLocal.speichereMesswert(messwert));
 
@@ -54,8 +54,7 @@ public class MesswertAPI {
                     messwert.getAkku(),
                     messwert.getMesszeit().toLocalDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
                     messwert.getMesszeit().toLocalTime().format(DateTimeFormatter.ofPattern("HH:mm:ss")),
-                    durchschnittstemperatur,
-                    messungID);
+                    durchschnittstemperatur);
 
             //Antworten
             return Response.accepted(messwertRueckgabe).build();

@@ -32,16 +32,7 @@ public class Messwert implements Serializable {
         this.name = name;
     }
 
-    public Messwert(double temperatur, LocalDateTime messzeit, int akku, int messungID) {
-
-        try{
-            InitialContext initialContext = new InitialContext();
-            MessungDAOLocal messungDAOLocal = (MessungDAOLocal) initialContext.lookup("java:module/MessungDAO!RESTful.DAOs.MessungDAOLocal");
-            this.messung = messungDAOLocal.findeMessung(messungID);
-            System.out.println(messung);
-        } catch (Exception e){
-
-        }
+    public Messwert(double temperatur, LocalDateTime messzeit, int akku) {
         this.temperatur = temperatur;
         this.messzeit = messzeit;
         this.akku = akku;
@@ -85,7 +76,7 @@ public class Messwert implements Serializable {
     }
 
     public void setMessung(Messung messung) {
-        messung = messung;
+        this.messung = messung;
     }
 
     public String getName() {

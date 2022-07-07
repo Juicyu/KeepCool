@@ -16,9 +16,8 @@ public class MesswertRueckgabe extends Messwert implements Serializable {
                              int akku,
                              String date,
                              String time,
-                             String durchschnittstemperatur,
-                             int messungID) {
-        super(temperatur, messzeit, akku, messungID);
+                             String durchschnittstemperatur) {
+        super(temperatur, messzeit, akku);
         this.date = date;
         this.time = time;
         this.durchschnittstemperatur = durchschnittstemperatur;
